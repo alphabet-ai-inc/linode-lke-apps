@@ -14,8 +14,22 @@ This project sets up Docker Registry in a Kubernetes cluster.
 1. `terraform` installed (~> 1.12).
 2. `kubectl` installed.
 3. Linode API-токен in `~/.linode_token` file.
-4. File `kubeconfig.yaml` from project `infrastructure/` (or access to remote state в S3).
+4. Access to vault (~/.vault_tokens)
 5. Access to Linode DNS for dimain configured in `var.main_domain`.
+
+Example of `~/.vault_token`:
+
+```yaml
+tokens:
+  dev:
+    authserver_dev: "hvs..."
+  stage:
+    lke: "hvs...."
+```
+
+where:
+`stage` == `var.env`
+`lke` == `var.server_group_name` == `var.cluster_name` of `linode-lke` project
 
 ## Installation
 
