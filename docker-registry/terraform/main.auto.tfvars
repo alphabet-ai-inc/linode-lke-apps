@@ -1,0 +1,5 @@
+env                = "stage"
+vault_url          = "https://vault.sushkovs.ru"
+server_group_name  = "lke"
+main_domain        = "aztech-ai.com"
+registry_subdomain = "registry2"
