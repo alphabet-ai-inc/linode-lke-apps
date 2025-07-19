@@ -14,7 +14,7 @@ This project sets up Docker Registry in a Kubernetes cluster.
 1. `terraform` installed (~> 1.12).
 2. `kubectl` installed.
 3. Linode API-токен in `~/.linode_token` file.
-4. Файл `kubeconfig.yaml` из проекта `infrastructure/` (или доступ к remote state в S3).
+4. File `kubeconfig.yaml` from project `infrastructure/` (or access to remote state в S3).
 5. Access to Linode DNS for dimain configured in `var.main_domain`.
 
 ## Installation
@@ -82,3 +82,19 @@ terraform output -raw registry_password
 ```bash
 docker login -u admin -p <password> <docker_registry_url>
 ```
+
+#### Get kubeconfig.yaml from remote state
+
+```bash
+terraform output -raw kubeconfig_raw > test.yaml
+```
+
+#### Get kubeconfig.yaml from vault
+
+```bash
+export VAULT_ADDR=$(cat tmp/.vault_addr)
+export VAULT_TOKEN=$(cat tmp/.vault_token)
+vault kv get -field=kubeconfig secret/lke/kubeconfig > kubeconfig.yaml
+```
+
+- `lke` in vault path must coincide with `var.cluster_name` of `linode-lke` project.
